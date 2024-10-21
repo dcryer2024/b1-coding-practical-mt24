@@ -80,17 +80,21 @@ class Mission:
         # You are required to implement this method
         data_frame = pd.read_csv(file_name)
 
-        reference = data_frame.iloc(0)
-        cave_height = data_frame.iloc(1)
-        cave_depth = data_frame.iloc(2)
+        reference = data_frame.iloc[:, 0].to_numpy()  # First column
+        cave_height = data_frame.iloc[:, 1].to_numpy()  # Second column
+        cave_depth = data_frame.iloc[:, 2].to_numpy()  # Third column
 
-        print(reference)
-        print(cave_height)
-        print(cave_depth)
+        # Return an instance of Mission class
+        return cls(reference, cave_height, cave_depth)
+    
+# Create an instance of Mission using the from_csv method
+mission = Mission.from_csv('mission.csv')
 
-        pass
+# Print the values to verify
+print("Reference Array:", mission.reference)
+print("Cave Height Array:", mission.cave_height)
+print("Cave Depth Array:", mission.cave_depth)
 
-output = Mission('mission.csv')
 
 # %% 
 class ClosedLoop:
