@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import numpy as np
 import matplotlib.pyplot as plt
-from .terrain import generate_reference_and_limits
+from terrain import generate_reference_and_limits
 import pandas as pd 
 
 
@@ -63,7 +63,7 @@ class Trajectory:
         plt.plot(mission.reference, 'r', linestyle='--', label='Reference')
         plt.legend(loc='upper right')
         plt.show()
-
+# %%
 @dataclass
 class Mission:
     reference: np.ndarray
@@ -84,11 +84,15 @@ class Mission:
         cave_height = data_frame.iloc(1)
         cave_depth = data_frame.iloc(2)
 
-        
+        print(reference)
+        print(cave_height)
+        print(cave_depth)
 
         pass
 
+output = Mission('mission.csv')
 
+# %% 
 class ClosedLoop:
     def __init__(self, plant: Submarine, controller):
         self.plant = plant
