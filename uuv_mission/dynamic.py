@@ -88,7 +88,7 @@ class Mission:
         return cls(reference, cave_height, cave_depth)
     
 # Create an instance of Mission using the from_csv method
-mission = Mission.from_csv('mission.csv')
+mission = Mission.from_csv('/workspaces/b1-coding-practical-mt24/data/mission.csv')
 
 # Print the values to verify
 print("Reference Array:", mission.reference)
