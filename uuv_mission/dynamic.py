@@ -63,7 +63,7 @@ class Trajectory:
         plt.plot(mission.reference, 'r', linestyle='--', label='Reference')
         plt.legend(loc='upper right')
         plt.show()
-# %%
+        
 @dataclass
 class Mission:
     reference: np.ndarray
@@ -95,8 +95,8 @@ print("Reference Array:", mission.reference)
 print("Cave Height Array:", mission.cave_height)
 print("Cave Depth Array:", mission.cave_depth)
 
+from control import compute_action
 
-# %% 
 class ClosedLoop:
     def __init__(self, plant: Submarine, controller):
         self.plant = plant
@@ -111,11 +111,13 @@ class ClosedLoop:
         positions = np.zeros((T, 2))
         actions = np.zeros(T)
         self.plant.reset_state()
+        previous_error = 0
 
         for t in range(T):
             positions[t] = self.plant.get_position()
             observation_t = self.plant.get_depth()
             # Call your controller here
+            actions[t], previous_error = self.controller(mission.reference[t], observation_t, previous_error)
             self.plant.transition(actions[t], disturbances[t])
 
         return Trajectory(positions)
