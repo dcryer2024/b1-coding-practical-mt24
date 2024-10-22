@@ -90,10 +90,6 @@ class Mission:
 # Create an instance of Mission using the from_csv method
 mission = Mission.from_csv('/workspaces/b1-coding-practical-mt24/data/mission.csv')
 
-# Print the values to verify
-print("Reference Array:", mission.reference)
-print("Cave Height Array:", mission.cave_height)
-print("Cave Depth Array:", mission.cave_depth)
 
 from control import compute_action
 
