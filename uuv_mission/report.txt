@@ -1,0 +1,16 @@
+What problem did you solve: 
+
+The aim of this code is to simulate the trajectory of a submarine along a reference path, with external disturbances. The submarine’s motion is governed by a PD controller, and we model the disturbances noise as gaussian with 0 mean. In order for the code to run properly, I needed to extract data from the mission csv, write a controller function, and call this function in the simulate class method so that it would
+
+What changes did you make to the codebase – which functions / classes were modified: 
+Explain design choices and discuss any difficulties you overcame: 
+
+My first change was to complete the from_csv method in Mission. I used the pandas plug in to extract the csv data and convert it to a data frame. One initial challenge that followed from this was converting the type of the data (Pandas series to numpy arrary). I chose to convert it so that the data could be parsed more easily into later functions, rather than storing them as a Pandas series. 
+Next, I created the controller in a separate module. This function has 5 arguments including the position data, the error from the previous time step, and the two controller gains, which can be adjusted in the control module. I chose not to import these gains by adding them to the simulate method arguments, as it made more sense to me to contain all of the control data inside its own module. One problem with writing this module was choosing whether to use a class or a function. I opted to use a function rather than a class, since in this case I only wrote a single PD controller – however, a class may have been more appropriate if I wanted to write multiple controllers, and test the performance of each one. This added an extra line to dynamic.py where I imported the relevant function. 
+Other minor changes I made were altering the terrain import from a relative import to an absolute import to solve issues I had finding the right module; initialising the previous error to avoid problems in the first iteration of simulate method; and using print functions (deleted in later commits) to check whether the data extracted from the csv file seemed reasonable. 
+Finally, I wrote a test notebook to check the code was working. This notebook starts with importing relevant classes, functions and plugins, before initialising instances of the submarine and closed loop classes. I then called the simulate with random disturbances method before plotting the outcome. The contents of the notebook worked with little issue (surprisingly), however, one problem that did occur was an error due to the kernel location of the notebook. I fixed this by changing to a virtual environment .conda, which allowed the notebook to access the other modules, and run the code properly. 
+The only further adjustments were to the values of Kp and Kd, in order to reduce the overshoot observed in earlier versions of the controller. 
+
+Possible improvements for future work: 
+
+As mentioned earlier, an obvious improvement would be to create a controller class, containing multiple methods – each being a different type of controller (P, PD, PID). A useful feature of the notebook would be to plot multiple trajectories on the same graph to provide more accurate comparisons in performance. This would require altering the plot_completed_mission method in the trajectory class. 
