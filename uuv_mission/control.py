@@ -1,4 +1,4 @@
-def compute_action(reference, pos_y, previous_error, Kp= 0.15, Kd = 0.6):
+def compute_action(reference, pos_y, previous_error, Kp= 0.18, Kd = 0.8):
     # Compute the current error
     current_error = reference - pos_y
 
